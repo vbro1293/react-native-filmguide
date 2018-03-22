@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 
+import Showtime from '../components/Showtime';
+
+
 class DetailScreen extends Component {
 	constructor(props) {
 	  super(props);
@@ -12,15 +15,21 @@ class DetailScreen extends Component {
 		const { item } = this.props.navigation.state.params;
 		const { synopsis, year, tmdbRating, tmdbImageId } = item;
 		const imageSource = { uri: "https://image.tmdb.org/t/p/original/" + tmdbImageId + ".jpg" };
+
 		return (
 			<View style={ styles.container }>
 				<Image source={ imageSource } style={ styles.image } />
 				<View style={ styles.infoContainer }>
-					<Text>{ year ? "Released in " + year : "Unknown release year" }</Text>
-					<Text>{ tmdbRating ? "Rating: " + tmdbRating + "%" : null }</Text>
+					<Text style={ styles.infoText }>{ year ? "Released in " + year : "Unknown release year" }</Text>
+					<Text style={ styles.infoText }>{ tmdbRating ? "Rating: " + tmdbRating + "%" : null }</Text>
 				</View>
 				<View style={ styles.showtimesContainer }>
-					<Text>Showtimes:</Text>
+					<Text>Showtimes: </Text>
+					<View style={ styles.showtimes }>
+						{ item.showtimes.map((show, i) => (
+							<Showtime key={ i } show={ show }/>
+						))}
+					</View>
 				</View>
 				<ScrollView style={ styles.synopsisContainer } >
 					<Text>{ synopsis }</Text>
@@ -47,14 +56,23 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 		justifyContent: 'space-between',
 	},
+	infoText: {
+		fontSize: 14,
+	},
+	synopsisContainer: {
+		flex: 1,
+		paddingTop: 5,
+	},
 	showtimesContainer: {
 		paddingBottom: 5,
 		borderBottomWidth: 1,
 		borderColor: '#68aa63',
 	},
-	synopsisContainer: {
-		flex: 1,
-	}
+	showtimes: {
+		marginLeft: 10,
+		borderLeftWidth: 1,
+		borderColor: '#68aa63',
+	},
 });
 
 //===========HEADER BAR

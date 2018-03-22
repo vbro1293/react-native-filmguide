@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import moment from 'moment';
+import Showtime from '../components/Showtime';
+
 
 class ListItem extends Component {
 	constructor(props) {
@@ -7,6 +10,7 @@ class ListItem extends Component {
 	
 		//-------------BIND METHODS TO THIS
 		this.onPress = this.onPress.bind(this);
+		this.nextShow = this.onPress.bind(this);
 	}
 
 	onPress(){
@@ -14,18 +18,16 @@ class ListItem extends Component {
 		onPress(item);
 	}
 
+
 	render() {
 		const { item, onPress } = this.props;
-		// const showtime = item.showtimes.map((field, i) => {
-		// 	return ("hello")
-		// })
-		
+
 		return (
 			<TouchableHighlight onPress={ this.onPress }>
 				<View style={ styles.container }>
 					<View style={ styles.textContainer }>
 						<Text numberOfLines={1} style={ styles.title }>{ item.name }</Text>
-						<Text numberOfLines={1} style={ styles.text }>Showtime</Text>
+						<Showtime show={ item.showtimes[0] }/>
 					</View>
 					<Text style={ styles.rating }>{ item.tmdbRating + "%" }</Text>
 				</View>

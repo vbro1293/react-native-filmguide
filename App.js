@@ -1,23 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import { StatusBar } from 'react-native';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
+//===========IMPORT SCREENS
+import ListScreen from './screens/ListScreen';
+import DetailScreen from './screens/DetailScreen';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+//===========iOS ONLY STATUSBAR STYLE
+StatusBar.setBarStyle('light-content');
+
+//===========MAIN NAVIGATION AND STYLE
+const RootNavigator = StackNavigator({
+  List: ListScreen,
+  Detail: DetailScreen,
+  }, {
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#68aa63'
   },
-});
+  headerTintColor: '#ffffff'
+  }}
+);
+
+export default RootNavigator;
